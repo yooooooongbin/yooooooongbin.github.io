@@ -1,148 +1,133 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>머신러닝 서비스</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./mltest_files/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <title>연예인 닮은꼴 찾기</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./mltest_files/jquery-3.4.1.slim.min.js"></script>
     <script src="./mltest_files/tf.min.js"></script>
     <script src="./mltest_files/teachablemachine-image.min.js"></script>
-    <link rel="stylesheet" href="./mltest_files/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="./mltest_files/style.css">
+    <link rel="stylesheet" href="./mltest_files/design.css">
 </head>
-
 <body>
-    <section class="section">
-        <h1 class="title">머신러닝 서비스</h1>
-        <h2 class="subtitle">사진 분류 머신러닝 서비스</h2>
-    </section>
+    <div class="wrap">
+        <header class="topbar">
+            <div class="brand"><span class="logo">✨</span> 머신러닝 서비스</div>
+        </header>
 
-    <div class="mt-3 container file-upload">
-        <div class="image-upload-wrap">
-            <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/">
-            <div class="drag-text">
-                <img src="./mltest_files/upload.png" class="mt-5 pt-5 upload" alt="upload-image">
-                <h3 class="mb-5 pb-5 pt-4  upload-text">사진을 올려 놓거나 눌러서 업로드하세요!</h3>
-            </div>
-        </div>
-        <div class="file-upload-content">
-            <img class="file-upload-image" id="face-image" src="./index.html" alt="your image">
-            <div id="loading" class="animated bounce">
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <p class="text-center">AI가 사진을 분석중입니다.</p>
-            </div>
-            <p class="result-message"></p>
-            <div id="label-container" class="d-flex flex-column justify-content-around"></div>
-            <div class="pt-3 image-title-wrap">
-                <button type="button p-2" class="try-again-btn" onclick="gaReload()">
-                    <span class="try-again-text">다른 사진으로 재시도</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <footer class="footer pt-5 container d-flex justify-content-center">
-        <div>
-            <p>© 수원대학교 빅데이터분석. All Rights Reserved. </p>
-            <ul id="moreInfo" class="list-inline d-flex justify-content-center">
-                <li class="list-inline-item">
-                    <a href="https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg" class="youtube-link">제작 도움: 조코딩 유튜브 채널</a>
-                </li>
+        <section class="hero">
+            <h1>연예인 닮은꼴 테스트</h1>
+            <p class="sub">얼굴로 보는 인공지능 닮은꼴 찾기</p>
+            <ul class="tags">
+                <li>무료</li><li>개인정보 안전</li><li>빠른 분석</li>
             </ul>
-        </div>
-    </footer>
+        </section>
+
+        <main class="card">
+            <div class="image-upload-wrap upload-box">
+                <input class="upload-input" type="file" onchange="readURL(this);" accept="image/*">
+                <div class="icon">📷</div>
+                <h3>얼굴 사진을 선택하세요!</h3>
+                <p class="hint">드래그 &amp; 드롭 · 클릭 &nbsp;|&nbsp; JPG, PNG 지원</p>
+                <span class="btn-main">사진 선택하기</span>
+            </div>
+            <p class="privacy" id="privacy">🔒 사진은 서버에 저장되지 않고, 내 브라우저에서만 분석됩니다.</p>
+
+            <div class="file-upload-content">
+                <img class="preview" id="face-image" alt="업로드한 사진">
+                <div id="loading">
+                    <div class="spinner"></div>
+                    <p>AI가 사진을 분석중입니다.</p>
+                </div>
+                <div class="result-message"></div>
+                <div id="label-container"></div>
+                <button type="button" class="btn-retry" onclick="gaReload()">다른 사진으로 재시도</button>
+            </div>
+        </main>
+
+        <section class="guide">
+            <h2>결과를 더 재미있게 보는 법</h2>
+            <div class="item" style="display:flex">
+                <span class="emoji">💡</span>
+                <div><b>정면 사진이 좋아요</b><span class="d">얼굴이 또렷하게 보이는 정면 사진일수록 결과가 정확해요.</span></div>
+            </div>
+            <div class="item" style="display:flex">
+                <span class="emoji">👥</span>
+                <div><b>친구들과 비교해 보세요</b><span class="d">같은 사진도 모델에 따라 다르게 나올 수 있어요.</span></div>
+            </div>
+            <div class="item" style="display:flex">
+                <span class="emoji">🎉</span>
+                <div><b>재미로만 즐겨주세요</b><span class="d">결과는 실제 닮음을 보장하지 않는 재미용입니다.</span></div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 수원대학교 빅데이터분석. All Rights Reserved.</p>
+            <a href="https://www.youtube.com/channel/UCQNE2JmbasNYbjGAcuBiRRg">제작 도움: 조코딩 유튜브 채널</a>
+        </footer>
+    </div>
+
     <script>
-        function gaReload() {
-            window.location.reload();
-        }
+        function gaReload() { window.location.reload(); }
 
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('.image-upload-wrap').hide();
+                    $('.image-upload-wrap, #privacy').hide();
                     $('#loading').show();
-                    $('.file-upload-image').attr('src', e.target.result);
                     $('.file-upload-content').show();
-                    $('.image-title').html(input.files[0].name);
+                    var img = document.getElementById('face-image');
+                    img.onload = function() {
+                        init().then(predict).then(function() { $('#loading').hide(); });
+                    };
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(input.files[0]);
-                init().then(function() {
-                    console.log("hello");
-                    predict();
-                    $('#loading').hide();
-                });
-            } else {
-                removeUpload();
             }
         }
 
-        function removeUpload() {
-            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-            $('.file-upload-content').hide();
-            $('.image-upload-wrap').show();
-        }
-        $('.image-upload-wrap').bind('dragover', function() {
-            $('.image-upload-wrap').addClass('image-dropping');
-        });
-        $('.image-upload-wrap').bind('dragleave', function() {
-            $('.image-upload-wrap').removeClass('image-dropping');
-        });
-    </script>
-    <script>
-        let model, webcam, labelContainer, maxPredictions;
+        $('.image-upload-wrap').on('dragover', function() { $(this).addClass('image-dropping'); });
+        $('.image-upload-wrap').on('dragleave drop', function() { $(this).removeClass('image-dropping'); });
+
+        let model, labelContainer, maxPredictions;
         async function init() {
-            const modelURL = "./mltest_files/model.json";
-            const metadataURL = "./mltest_files/metadata.json";
-            model = await tmImage.load(modelURL, metadataURL);
+            if (model) return;
+            model = await tmImage.load("./mltest_files/model.json", "./mltest_files/metadata.json");
             maxPredictions = model.getTotalClasses();
             labelContainer = document.getElementById("label-container");
-            for (let i = 0; i < maxPredictions; i++) {
-                var element = document.createElement("div")
-                element.classList.add("d-flex");
-                labelContainer.appendChild(element);
-            }
         }
 
         async function predict() {
-            var dic_class2information = {};
-            dic_class2information['나연'] = 'JYP엔터테인먼트 소속 9인조 그룹 TWICE의 멤버';
-            dic_class2information['장원영'] = '스타쉽엔터테인먼트 소속 6인조 걸그룹 IVE의 멤버.';
-            dic_class2information['제니'] = 'YG엔터테인먼트 소속 4인조 걸그룹 BLACKPINK의 메인래퍼이자 리드보컬';
-            var image = document.getElementById("face-image");
-            const prediction = await model.predict(image, false);
-            prediction.sort((a, b) => parseFloat(b.probability) - parseFloat(a.probability));
-            console.log(prediction[0].className);
-            var resultTitle, resultExplain;
-            if (prediction[0].className in dic_class2information){
-                resultTitle = prediction[0].className;
-                resultExplain = dic_class2information[prediction[0].className];
-            } else{
-                resultTitle = "알수없음";
-                resultExplain = "";
-            }
-            var title = "<div class='" + prediction[0].className + "-animal-title'>" + resultTitle + "</div>"
-            var explain = "<div class='animal-explain pt-2'>" + resultExplain + "</div>"
-            $('.result-message').html(title + explain);
-            var barWidth;
-            for (let i = 0; i < maxPredictions; i++) {
-                if (prediction[i].probability.toFixed(2) > 0.1) {
-                    barWidth = Math.round(prediction[i].probability.toFixed(2) * 100) + "%";
-                } else if (prediction[i].probability.toFixed(2) >= 0.01) {
-                    barWidth = "8%"
-                } else {
-                    barWidth = "4%"
-                }
-                var labelTitle = prediction[i].className;
-                var idx = Object.keys(dic_class2information).indexOf(prediction[i].className);
-                var label = "<div class='animal-label d-flex align-items-center'>" + labelTitle + "</div>"
-                var bar = "<div class='bar-container position-relative container'><div class='d" + idx + "-box'></div><div class='d-flex justify-content-center align-items-center d" + idx + "-bar' style='width: " + barWidth + "'><span class='d-block percent-text'>" + Math.round(prediction[i].probability.toFixed(2) * 100) + "%</span></div></div>"
-                labelContainer.childNodes[i].innerHTML = label + bar;
-            }
-        }
+            var info = {
+                '나연': 'JYP엔터테인먼트 소속 9인조 그룹 TWICE의 멤버',
+                '장원영': '스타쉽엔터테인먼트 소속 6인조 걸그룹 IVE의 멤버.',
+                '제니': 'YG엔터테인먼트 소속 4인조 걸그룹 BLACKPINK의 메인래퍼이자 리드보컬'
+            };
+            var names = Object.keys(info);
+            var prediction = await model.predict(document.getElementById("face-image"), false);
+            prediction.sort(function(a, b) { return b.probability - a.probability; });
 
-        window.dataLayer = window.dataLayer || [];
+            var top = prediction[0].className;
+            var topIdx = names.indexOf(top);
+            var known = topIdx >= 0;
+            $('.result-message').html(
+                "<div class='result-title " + (known ? 't' + topIdx : 'tx') + "'>" + (known ? top : "알수없음") + "</div>" +
+                "<div class='result-explain'>" + (known ? info[top] : "") + "</div>");
+
+            var html = "";
+            for (var i = 0; i < maxPredictions; i++) {
+                var p = prediction[i];
+                var pct = Math.round(p.probability * 100);
+                var idx = Math.max(names.indexOf(p.className), 0);
+                html += "<div class='row'><div class='name'>" + p.className + "</div>" +
+                    "<div class='track'><div class='fill f" + idx + "' data-w='" + Math.max(pct, 1) + "%' style='width:0'>" + pct + "%</div></div></div>";
+            }
+            labelContainer.innerHTML = html;
+            setTimeout(function() {
+                $('.fill').each(function() { this.style.width = this.getAttribute('data-w'); });
+            }, 50);
+        }
     </script>
 
 <!-- 
